@@ -11,3 +11,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.button {
+  max-width: 40%;
+  margin-left: 30%;
+}
+
+.todo-container-outer {
+  border-radius: 10px;
+  border: 2px solid darkgrey;
+  min-height: 30%;
+  margin-top: 7%;
+  max-height: 65%;
+}
+
+.todo-container-outer {
+  background-color: lightgray;
+  overflow: auto;
+}
+
+.body-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  margin-left: 25%;
+  height: 100vh;
+}
+
+.mark-complete-button {
+  margin-left: 10px;
+}
+
+.input-container {
+  margin-left:37%;
+  margin-top: 4%;
+}
