@@ -1,10 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import locationIcon from "@iconify/icons-mdi/check-circle";
-const inputStyle = {
-  width: 235,
-  margin: 5,
-};
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +8,7 @@ class App extends React.Component {
     this.state = {
       todos: [],
       input: "",
+      deletedToDos: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -38,34 +35,33 @@ class App extends React.Component {
   //This spliced array is then set to a temp array which is used to update state to the smaller array
   //
   buttonToComplete(td) {
-    let beforeArr = this.state.todos;
-    console.log("before splice" + beforeArr);
-    this.state.todos.splice(td, 1);
+    let deletedArr = this.state.todos.splice(td, 1);
     let filteredArray = this.state.todos;
-    console.log("after splice" + filteredArray);
-    this.setState({ todos: filteredArray });
+    console.log("After delete the deletedToDos is: " + deletedArr);
+    this.setState({
+      todos: filteredArray,
+      deletedToDos: [...this.state.deletedToDos, deletedArr],
+    });
   }
 
   render() {
     const todos = this.state.todos.map((td, index) => {
       return (
-        <li className="list-items">
+        <li className="list-items" onClick={() => this.buttonToComplete(index)}>
           {td}
-          <button
-            className="mark-complete-button"
-            onClick={() => this.buttonToComplete(index)}
-          >
-            <Icon icon={locationIcon} className="complete-icon"></Icon>
-          </button>
         </li>
       );
+    });
+
+    const completedTickets = this.state.deletedToDos.map((deletedValue) => {
+      return <li className="list-items-complete">{deletedValue}</li>;
     });
     return (
       <div className="body-container">
         <h1 className="header-text-container">Conor's Todo Tracker </h1>
         <div className="input-container">
           <input
-            style={inputStyle}
+            className="input"
             value={this.state.input}
             placeholder="Enter your todo here"
             onChange={this.handleChange}
@@ -77,9 +73,21 @@ class App extends React.Component {
         </button>
         <div className="todo-container-outer">
           {this.state.todos.length > 0 ? (
-            <div className="todo-container-inner">{todos}</div>
+            <div>{todos}</div>
           ) : (
-            <div>No to-do's in list</div>
+            <div className="todo-container-inner-error">
+              No to-do's in the list.. it's lonely in here
+            </div>
+          )}
+        </div>
+
+        <div className="todo-container-outer">
+          {this.state.deletedToDos.length > 0 ? (
+            <div>{completedTickets}</div>
+          ) : (
+            <div className="todo-container-inner-error">
+              No to-do's have yet been completed... get working :)
+            </div>
           )}
         </div>
       </div>
