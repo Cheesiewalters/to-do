@@ -1,6 +1,4 @@
-import { Icon } from "@iconify/react";
 import React from "react";
-import locationIcon from "@iconify/icons-mdi/check-circle";
 
 class App extends React.Component {
   constructor(props) {
